@@ -10,7 +10,7 @@
     <servlet-name>ForecastServlet</servlet-name>
     <url-pattern>/ForecastServlet</url-pattern>
   </servlet-mapping>
-  <display-name>jms.git.xCBRchallenge2022</display-name>
+  <display-name>git.xCBRchallenge2022</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
