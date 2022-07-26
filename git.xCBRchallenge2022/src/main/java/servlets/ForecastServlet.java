@@ -21,9 +21,9 @@ public class ForecastServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//String date = request.getParameter("date");
-		//ArrayList<Weather> content = new ArrayList<Weather>();
+		ArrayList<Weather> content = new ArrayList<Weather>();
 
-		//content = CSVmanager.readCSV("weatherdata.csv");
+		//content = CSVmanager.readCSV("weatherdata.csv", "");
 		CSVmanager.printCSV("D:/weatherdata.csv");
 
 		request.getRequestDispatcher("index.jsp").forward(request, response);

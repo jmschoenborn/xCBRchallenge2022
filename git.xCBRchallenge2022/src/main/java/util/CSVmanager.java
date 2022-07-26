@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,16 +15,14 @@ import data.Weather;
 
 public class CSVmanager {
 
-	public static ArrayList<Weather> readCSV(String filename) {
+	@SuppressWarnings("deprecation")
+	public static ArrayList<Weather> readCSV(String filename, String filterMonth) {
 		ArrayList<Weather> content = new ArrayList<Weather>();
-		String dayPattern = "dd";
-		String monthPattern = "MM";
-		String yearPattern = "yyyy";
-		SimpleDateFormat dayFormat = new SimpleDateFormat(dayPattern);
-		SimpleDateFormat monthFormat = new SimpleDateFormat(monthPattern);
-		SimpleDateFormat yearFormat = new SimpleDateFormat(yearPattern);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
 		boolean header = true; 
-
+		int k = 0; 
+		
 		try {
 			try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
 				String line;
@@ -34,25 +34,35 @@ public class CSVmanager {
 							results[i] = tokens[i];
 						}
 					}
+					
 					if (!header) {
-					Date dayDate = dayFormat.parse(results[0]); 
-					Date monthDate = monthFormat.parse(results[0]); 
-					Date yearDate = yearFormat.parse(results[0]); 
+						Date date = sdf.parse(results[0]); 
+						String day = new SimpleDateFormat("dd").format(date);
+						String month = new SimpleDateFormat("MM").format(date);
+						String year = new SimpleDateFormat("yyyy").format(date);
 						
-					Weather weather = new Weather(
-							Integer.parseInt(dayFormat.format(dayDate)), 		// Day
-							Integer.parseInt(monthFormat.format(monthDate)),	// Month
-							Integer.parseInt(yearFormat.format(yearDate)),		// Year
-							Float.parseFloat(results[2]), 						// Temp_max
-							Float.parseFloat(results[3]), 						// Temp_min
-							Float.parseFloat(results[4]),						// Temp_avg
-							Float.parseFloat(results[5]), 						// Pres_avg
-							Float.parseFloat(results[6]), 						// Pres_max
-							Float.parseFloat(results[7]),						// Pres_min
-							Float.parseFloat(results[8]), 						// Hum_avg
-							Float.parseFloat(results[9]), 						// Hum_max
-							Float.parseFloat(results[10]));						// Hum_min
-					content.add(weather);
+						Weather weather = new Weather(
+								Integer.parseInt(day), 			// Day
+								Integer.parseInt(month),		// Month
+								Integer.parseInt(year),			// Year
+								Float.parseFloat(results[2]), 	// Temp_max
+								Float.parseFloat(results[3]), 	// Temp_min
+								Float.parseFloat(results[4]),	// Temp_avg
+								Float.parseFloat(results[5]), 	// Pres_avg
+								Float.parseFloat(results[6]), 	// Pres_max
+								Float.parseFloat(results[7]),	// Pres_min
+								Float.parseFloat(results[8]), 	// Hum_avg
+								Float.parseFloat(results[9]),   // Hum_max
+								Float.parseFloat(results[10]));	// Hum_min
+						
+						if (filterMonth.equals("")) {
+							content.add(weather);
+						} else if (Integer.parseInt(month) == DateFormatter.monthToNumber(filterMonth)) {
+							content.add(weather);
+							//System.out.println(weather.getYear() + "/" + weather.getMonth() + "/" + weather.getDay());
+						}
+						
+						
 					}
 					header = false;
 				}
@@ -71,12 +81,17 @@ public class CSVmanager {
 			System.err.println("[CSVmanager] Something went wrong with date parsing.");
 			e.printStackTrace();
 		} 
+		System.out.println("Size: " + content.size());
 		return content;
 	}
 	
 	
+	
+	
+	
 	public static void printCSV(String filename) {
-		ArrayList<Weather> content = readCSV(filename); 
+		ArrayList<Weather> content = readCSV(filename, ""); 
+		DecimalFormat df = new DecimalFormat("#.##");
 		System.out.format(
 				"+---------+-------+-------+-------+---------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+%n");
 		System.out.format(
@@ -89,23 +104,18 @@ public class CSVmanager {
 			System.out.format(" %5s |", content.get(i).getDay());
 			System.out.format(" %5s |", content.get(i).getMonth());
 			System.out.format(" %5s |", content.get(i).getYear());
-			System.out.format(" %13s |", content.get(i).getTemp_max());
-			System.out.format(leftAlignFormat, content.get(i).getTemp_min());
-			System.out.format(leftAlignFormat, content.get(i).getTemp_avg());
-			System.out.format(leftAlignFormat, content.get(i).getPres_avg());
-			System.out.format(leftAlignFormat, content.get(i).getPres_max());
-			System.out.format(leftAlignFormat, content.get(i).getPres_min());
-			System.out.format(leftAlignFormat, content.get(i).getHum_avg());
-			System.out.format(leftAlignFormat, content.get(i).getHum_max());
-			System.out.format(leftAlignFormat, content.get(i).getHum_min());
+			System.out.format(" %13s |", df.format(content.get(i).getTemp_max()));
+			System.out.format(leftAlignFormat, df.format(content.get(i).getTemp_min()));
+			System.out.format(leftAlignFormat, df.format(content.get(i).getTemp_avg()));
+			System.out.format(leftAlignFormat, df.format(content.get(i).getPres_avg()));
+			System.out.format(leftAlignFormat, df.format(content.get(i).getPres_max()));
+			System.out.format(leftAlignFormat, df.format(content.get(i).getPres_min()));
+			System.out.format(leftAlignFormat, df.format(content.get(i).getHum_avg()));
+			System.out.format(leftAlignFormat, df.format(content.get(i).getHum_max()));
+			System.out.format(leftAlignFormat, df.format(content.get(i).getHum_min()));
 			System.out.format("%n");
 		}
 		System.out.format(
 				"+---------+-------+-------+-------+---------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+%n");
-
-		
-	
-	
 	}
-
 }

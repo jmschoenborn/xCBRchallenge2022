@@ -1,21 +1,24 @@
 package data;
 
+
 public class Weather {
 	private int day; 
 	private int month;
 	private int year;
-	private float temp_max; 
-	private float temp_min; 
-	private float temp_avg; 
-	private float pres_avg; 
-	private float pres_max; 
-	private float pres_min; 
-	private float hum_avg; 
-	private float hum_max; 
-	private float hum_min;
+	private double temp_max; 
+	private double temp_min; 
+	private double temp_avg; 
+	private double pres_avg; 
+	private double pres_max; 
+	private double pres_min; 
+	private double hum_avg; 
+	private double hum_max; 
+	private double hum_min;
+	private double sim; 
 	
-	public Weather(int day, int month, int year, float temp_max, float temp_min, float temp_avg, float pres_avg,
-			float pres_max, float pres_min, float hum_avg, float hum_max, float hum_min) {
+
+	public Weather(int day, int month, int year, double temp_max, double temp_min, double temp_avg, double pres_avg,
+			double pres_max, double pres_min, double hum_avg, double hum_max, double hum_min) {
 		super();
 		this.day = day;
 		this.month = month;
@@ -49,61 +52,66 @@ public class Weather {
 	public void setYear(int year) {
 		this.year = year;
 	}
-	public float getTemp_max() {
+	public double getTemp_max() {
 		return temp_max;
 	}
-	public void setTemp_max(float temp_max) {
+	public void setTemp_max(double temp_max) {
 		this.temp_max = temp_max;
 	}
-	public float getTemp_min() {
+	public double getTemp_min() {
 		return temp_min;
 	}
-	public void setTemp_min(float temp_min) {
+	public void setTemp_min(double temp_min) {
 		this.temp_min = temp_min;
 	}
-	public float getTemp_avg() {
+	public double getTemp_avg() {
 		return temp_avg;
 	}
-	public void setTemp_avg(float temp_avg) {
+	public void setTemp_avg(double temp_avg) {
 		this.temp_avg = temp_avg;
 	}
-	public float getPres_avg() {
+	public double getPres_avg() {
 		return pres_avg;
 	}
-	public void setPres_avg(float pres_avg) {
+	public void setPres_avg(double pres_avg) {
 		this.pres_avg = pres_avg;
 	}
-	public float getPres_max() {
+	public double getPres_max() {
 		return pres_max;
 	}
-	public void setPres_max(float pres_max) {
+	public void setPres_max(double pres_max) {
 		this.pres_max = pres_max;
 	}
-	public float getPres_min() {
+	public double getPres_min() {
 		return pres_min;
 	}
-	public void setPres_min(float pres_min) {
+	public void setPres_min(double pres_min) {
 		this.pres_min = pres_min;
 	}
-	public float getHum_avg() {
+	public double getHum_avg() {
 		return hum_avg;
 	}
-	public void setHum_avg(float hum_avg) {
+	public void setHum_avg(double hum_avg) {
 		this.hum_avg = hum_avg;
 	}
-	public float getHum_max() {
+	public double getHum_max() {
 		return hum_max;
 	}
-	public void setHum_max(float hum_max) {
+	public void setHum_max(double hum_max) {
 		this.hum_max = hum_max;
 	}
-	public float getHum_min() {
+	public double getHum_min() {
 		return hum_min;
 	}
-	public void setHum_min(float hum_min) {
+	public void setHum_min(double hum_min) {
 		this.hum_min = hum_min;
 	}
-	
+	public double getSimilarity() {
+		return sim;
+	}
+	public void setSimilarity(double d) {
+		this.sim = d;
+	}
 	
 
 	

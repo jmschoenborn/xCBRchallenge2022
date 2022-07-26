@@ -2,7 +2,7 @@ package util;
 
 public class DateFormatter {
 	
-	public int MonthnameToNumber(String name) {
+	public static int monthToNumber(String name) {
 		int month = 0; 
 		switch (name) {
 		case "JANUARY": 
@@ -43,5 +43,49 @@ public class DateFormatter {
 			break; 
 		}
 		return month; 
+	}
+	
+	
+	public static String numberToMonthname(int month) {
+		String name = "ERROR: monthname not found!"; 
+		switch (month) {
+		case 1: 
+			name = "JANUARY"; 
+			break; 
+		case 2: 
+			name = "FEBURARY";
+			break; 
+		case 3: 
+			name = "MARCH";
+			break; 
+		case 4: 
+			name = "APRIL";
+			break; 
+		case 5: 
+			name = "MAY";
+			break; 
+		case 6: 
+			name = "JUNE";
+			break; 
+		case 7: 
+			name = "JULY";
+			break; 
+		case 8: 
+			name = "AUGUST"; 
+			break; 
+		case 9: 
+			name = "SEPTEMBER";
+			break; 
+		case 10: 
+			name = "OCTOBER";
+			break; 
+		case 11: 
+			name = "NOVEMBER";
+			break; 
+		case 12: 
+			name = "DECEMBER";
+			break; 
+		}
+		return name; 
 	}
 }
